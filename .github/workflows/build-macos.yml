@@ -1,0 +1,42 @@
+name: Build macOS App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Use the Python version you need
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Build with PyInstaller
+        run: pyinstaller --onefile --windowed spelling_checker_gui.py
+
+      - name: Archive build
+        run: |
+          mkdir -p dist-macos
+          mv dist/spelling_checker_gui dist-macos/
+          tar -czvf dist-macos.tar.gz dist-macos
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: macOS-build
+          path: dist-macos.tar.gz
