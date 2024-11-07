@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5.3.0
         with:
-          python-version: '3.x'  # Use the Python version you need
+          python-version: '3.13.0'  # Use the Python version you need
 
       - name: Install dependencies
         run: |
@@ -27,7 +27,7 @@ jobs:
           pip install pyinstaller
 
       - name: Build with PyInstaller
-        run: pyinstaller --onefile --windowed spelling_checker_gui.py
+        run: pyinstaller --onedir --windowed spelling_checker_gui.py
 
       - name: Archive build
         run: |
