@@ -27,7 +27,7 @@ jobs:
           pip install pyinstaller
 
       - name: Build with PyInstaller
-        run: pyinstaller --onedir --windowed spelling_checker_gui.py
+        run: pyinstaller --onedir --windowed --icon=NONE spelling_checker_gui.py
 
       - name: Archive build
         run: |
